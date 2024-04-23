@@ -1,0 +1,9 @@
+export enum UserGroup {
+  EVC = 'EVC',
+  FINANCE = 'FINANCE',
+  CUSTOMER_SERVICE_DESK = 'CSD',
+  PLANNING = 'PLANNING',
+  PROJECT_MANAGER = 'PM',
+  NEWS = 'NEWS',
+  RADIO = 'RADIO',
+}

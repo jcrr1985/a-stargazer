@@ -1,0 +1,345 @@
+<div class="table-header">
+  <div class="table-header-left">
+    <mat-form-field
+      [hidden]="!currentTableOptions.showFilter"
+      class="table-filter">
+      <mat-label>{{ 'tableFilter' | translate }}</mat-label>
+
+      <div class="input-container">
+        <input
+          matInput
+          [(ngModel)]="filterValue"
+          (keyup)="applyFilter()" />
+
+        <div class="clear-button">
+          <button
+            mat-button
+            *ngIf="filterValue"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="filterValue = ''; applyFilter()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-form-field>
+  </div>
+
+  <div class="table-header-right">
+    <span
+      [hidden]="!currentTableOptions.showResult"
+      class="table-result"
+      >{{ currentDataSource.filteredData.length }} result(s)
+    </span>
+
+    <div
+      [hidden]="!currentTableOptions.showTableActions"
+      class="table-actions">
+      <button
+        *ngFor="let action of currentTableActions"
+        mat-raised-button
+        (click)="onTableAction(action, $event)"
+        [disabled]="action.disabled"
+        [matTooltip]="
+          action.translateKey ? (action.translateKey | translate) : ''
+        "
+        [color]="action.color"
+        [style.color]="action.color"
+        [style.backgroundColor]="action.bgColor">
+        <mat-icon>{{ action.icon }}</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<table
+  mat-table
+  matSort
+  [dataSource]="currentDataSource"
+  class="table-content">
+  <ng-container [matColumnDef]="NoDataColumnName.rowsSelector">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="row-selector-cell custom-table-header-cell"
+      [hidden]="!currentTableOptions.showRowsSelector">
+      <mat-checkbox
+        *ngIf="currentTableOptions.multipleRowsSelected"
+        (change)="$event ? masterToggle() : null"
+        [checked]="currentRowsSelected.hasValue() && isAllSelected()"
+        [indeterminate]="currentRowsSelected.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+    </th>
+
+    <td
+      mat-cell
+      *matCellDef="let row"
+      class="row-selector-cell custom-table-cell"
+      [hidden]="!currentTableOptions.showRowsSelector">
+      <mat-checkbox
+        (click)="$event.stopPropagation()"
+        (change)="$event ? currentRowsSelected.toggle(row) : null"
+        [checked]="currentRowsSelected.isSelected(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="NoDataColumnName.columnsSelector">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="column-selector-cell custom-table-header-cell"
+      [hidden]="!currentTableOptions.showColumnsSelector">
+      <mat-icon
+        (click)="showColumnsMenuClick($event)"
+        class="column-selector-icon"
+        >{{ columnsSelectorIcon }}</mat-icon
+      >
+    </th>
+
+    <td
+      mat-cell
+      *matCellDef="let row"
+      class="column-selector-cell custom-table-cell"
+      [hidden]="!currentTableOptions.showRowActions">
+      <button
+        *ngFor="let action of currentRowActions"
+        mat-icon-button
+        (click)="onRowAction(row, action, $event)"
+        [disabled]="action.isDisabled ? action.isDisabled(row) : false"
+        [matTooltip]="
+          action.translateKey ? (action.translateKey | translate) : ''
+        "
+        [color]="action.color"
+        [style.color]="action.color"
+        [style.backgroundColor]="action.bgColor">
+        <mat-icon>{{ action.icon }}</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container
+    *ngFor="let column of getDataColumnNames(currentDisplayedColumns)"
+    [matColumnDef]="column">
+    <th
+      mat-header-cell
+      mat-sort-header
+      *matHeaderCellDef
+      [style.width]="columnsConfiguration[column].width"
+      class="custom-table-header-cell">
+      {{ columnsConfiguration[column].translateKey | translate }}
+    </th>
+
+    <td
+      mat-cell
+      class="custom-table-cell"
+      *matCellDef="let row"
+      (contextmenu)="
+        currentTableOptions.showMenuActions &&
+          currentRowMenuActions.length &&
+          onContextMenu(row, $event)
+      ">
+      <div [ngSwitch]="columnsConfiguration[column].type">
+        <div *ngIf="columnsConfiguration[column].type === 'date'">
+          {{ row[column] | date : $any(columnsConfiguration[column]).format }}
+        </div>
+
+        <div *ngIf="columnsConfiguration[column].type === 'number'">
+          <!-- TODO: numberPipe -->
+          {{ row[column] }}
+        </div>
+
+        <div *ngIf="columnsConfiguration[column].type === 'boolean'">
+          <mat-icon
+            *ngIf="!row[column]"
+            color="warn"
+            >{{
+              $any(columnsConfiguration[column]).iconFalse
+                ? $any(columnsConfiguration[column]).iconFalse
+                : 'close'
+            }}</mat-icon
+          >
+
+          <mat-icon
+            *ngIf="row[column]"
+            color="primary"
+            >{{
+              $any(columnsConfiguration[column]).iconTrue
+                ? $any(columnsConfiguration[column]).iconTrue
+                : 'check'
+            }}</mat-icon
+          >
+        </div>
+
+        <div *ngIf="columnsConfiguration[column].type === 'tooltip'">
+          <mat-icon
+            id="tooltip-button"
+            *ngIf="row[column]"
+            color="primary"
+            (click)="
+              tooltipFetchAsyncData(
+                row,
+                $any(columnsConfiguration[column]),
+                $event
+              )
+            "
+            >{{
+              $any(columnsConfiguration[column]).icon
+                ? $any(columnsConfiguration[column]).icon
+                : 'info'
+            }}</mat-icon
+          >
+        </div>
+
+        <div *ngIf="columnsConfiguration[column].type === 'string'">
+          <!-- TODO: stringPipe -->
+          {{ row[column] }}
+        </div>
+
+        <div *ngIf="columnsConfiguration[column].type === 'object'">
+          {{ $any(columnsConfiguration[column]).displayWith(row[column]) }}
+        </div>
+
+        <div *ngIf="columnsConfiguration[column].type === 'checkbox'">
+          <mat-checkbox
+            color="primary"
+            (click)="
+              tooltipFetchAsyncData(
+                row,
+                $any(columnsConfiguration[column]),
+                $event
+              )
+            "></mat-checkbox>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr
+    [hidden]="
+      currentDataSource.data.length === 0 &&
+      !currentTableOptions.showHeaderWhenContentNoData
+    "
+    mat-header-row
+    *matHeaderRowDef="currentDisplayedColumns"></tr>
+
+  <tr
+    [hidden]="currentDataSource.data.length === 0"
+    mat-row
+    *matRowDef="let row; columns: currentDisplayedColumns"
+    [ngClass]="{
+      'row-selected':
+        currentTableOptions.markRowSelected &&
+        currentRowsSelected.isSelected(row)
+    }"
+    (click)="onRowClick(row, $event)"
+    (dblclick)="onRowDblClick(row, $event)"></tr>
+
+  <tr
+    class="mat-row"
+    *matNoDataRow>
+    <td
+      class="mat-cell text-center custom-table-cell"
+      colspan="100%">
+      {{
+        currentDataSource.data.length === 0
+          ? ('tableNoData' | translate)
+          : ('tableNoFilteredData' | translate)
+      }}
+    </td>
+  </tr>
+</table>
+
+<mat-paginator
+  [hidden]="
+    !currentPaginatorOptions.show || currentDataSource.data.length === 0
+  "
+  [pageSizeOptions]="currentPaginatorOptions.pageSizeOptions"
+  [pageSize]="
+    currentPaginatorOptions.pageSize ||
+    currentPaginatorOptions.pageSizeOptions[0]
+  "
+  [showFirstLastButtons]="currentPaginatorOptions.showFirstLastButtons || false"
+  [pageIndex]="currentPaginatorOptions.pageIndex || 0"
+  (page)="onPageChange($event)"></mat-paginator>
+
+<!-- START columnsSelector -->
+<span
+  #columnsSelectorMenuTrigger
+  style="visibility: hidden; position: fixed"
+  [style.left]="columnsSelectorMenuPosition.x"
+  [style.top]="columnsSelectorMenuPosition.y"
+  [matMenuTriggerFor]="columnsSelectorMenu"
+  (menuOpened)="columnsSelectorIcon = 'expand_less'"
+  (menuClosed)="columnsSelectorIcon = 'expand_more'"></span>
+
+<mat-menu
+  #columnsSelectorMenu="matMenu"
+  backdropClass="columns-selector-menu-backdrop"
+  class="columns-selector-menu">
+  <ng-template
+    matMenuContent
+    let-columns="columns">
+    <mat-selection-list
+      [(ngModel)]="columnsSelected"
+      (ngModelChange)="columnsSelectorMenuChange($event)">
+      <mat-list-option
+        *ngFor="let column of getDataColumnNames(columns)"
+        [ngClass]="{ 'column-selected': isColumnSelected(column) }"
+        [value]="column"
+        (click)="$event.stopPropagation()">
+        {{ columnsConfiguration[column].translateKey | translate }}
+      </mat-list-option>
+    </mat-selection-list>
+  </ng-template>
+</mat-menu>
+<!-- END columnsSelector -->
+
+<!-- START Menu per row -->
+<span
+  #contextMenuTrigger
+  style="visibility: hidden; position: fixed"
+  [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y"
+  [matMenuTriggerFor]="contextMenu"
+  (menuOpened)="hasContextMenu = true"
+  (menuClosed)="hasContextMenu = false"></span>
+
+<mat-menu
+  #contextMenu="matMenu"
+  backdropClass="actions-selector-menu-backdrop"
+  class="actions-selector-menu">
+  <ng-template
+    matMenuContent
+    let-row="row">
+    <button
+      mat-menu-item
+      *ngFor="let rowMenuAction of currentRowMenuActions"
+      (click)="onRowMenuAction(row, rowMenuAction, $event)"
+      [disabled]="
+        rowMenuAction.isDisabled ? rowMenuAction.isDisabled(row) : false
+      ">
+      {{ rowMenuAction.translateKey | translate }}
+    </button>
+  </ng-template>
+</mat-menu>
+<!-- END Menu per row -->
+
+<span
+  #tooltipTrigger
+  style="visibility: hidden; position: fixed"
+  [style.left]="tooltipMenuPosition.x"
+  [style.top]="tooltipMenuPosition.y"
+  mat-icon-button
+  [matMenuTriggerFor]="tooltipMenu"
+  (menuClosed)="tooltipData = ''">
+</span>
+
+<mat-menu #tooltipMenu="matMenu">
+  <ng-container *ngIf="tooltipData">
+    <div class="tooltip-wrapper">
+      <div [innerHTML]="tooltipData"></div>
+    </div>
+  </ng-container>
+</mat-menu>

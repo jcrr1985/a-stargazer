@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  height: calc(100% - 64px);
+
+  .side-section {
+    width: 15vw;
+    min-width: 300px;
+  }
+
+  .main-section {
+    width: 100%;
+  }
+}

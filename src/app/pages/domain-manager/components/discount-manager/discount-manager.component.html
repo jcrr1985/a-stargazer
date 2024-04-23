@@ -1,0 +1,42 @@
+<div class="domain-manager">
+  <div class="header">
+    <div class="title">
+      <h1>{{ 'discountManager' | translate }} ({{ data.length }})</h1>
+    </div>
+    <div class="actions">
+      <button
+        mat-mini-fab
+        id="button-save"
+        type="submit"
+        color="primary">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        id="button-reload-tab"
+        type="button"
+        color="primary">
+        <mat-icon>sync</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        id="button-close-tab"
+        type="button"
+        color="primary">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="body">
+    <div class="body-container">
+      <talan-table-generator
+        [columnsConfiguration]="columnsConfiguration"
+        [allColumns]="itemsTableColumns"
+        [tableOptions]="itemsTableOptions"
+        [data]="data"
+        (rowDblClick)="onRowDoubleClicked($event)">
+        >
+      </talan-table-generator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+@import './base';
+.tabbed-container {
+  min-height: 100%;
+  width: 100%;
+  ::ng-deep .mat-tab-list {
+    .tab-text {
+      margin-left: 0.5rem;
+      &.is-edited {
+        &:before {
+          content: '● ';
+          font-size: 20px;
+          color: red;
+          text-shadow: 0 0 2px $light-shadow-color, 0 0 2px $light-shadow-color,
+            0 0 2px $light-shadow-color, 0 0 2px $light-shadow-color,
+            0 0 2px $light-shadow-color, 0 0 2px $light-shadow-color;
+        }
+      }
+    }
+
+    .mat-tab-link {
+      &:not(.mat-tab-label-active) {
+        opacity: 1;
+      }
+
+      &.mat-tab-label-active {
+        background-color: $font-color-light;
+        color: black;
+        opacity: 1;
+      }
+    }
+
+    .mat-ink-bar {
+      display: none;
+    }
+  }
+}

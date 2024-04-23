@@ -1,0 +1,74 @@
+<!--Root item  (trigger button) for labeled menu-->
+<button
+  id="root-button"
+  *ngIf="isRootItem && !isIconMode"
+  mat-button
+  [matMenuTriggerFor]="menu">
+  <ng-container *ngIf="labelTranslateKey">
+    {{ labelTranslateKey | translate }}
+  </ng-container>
+  <ng-container *ngIf="label">
+    {{ label }}
+  </ng-container>
+</button>
+<!--Root item  (trigger button) for icon menu-->
+<button
+  id="root-icon-button"
+  *ngIf="isRootItem && isIconMode && label"
+  mat-icon-button
+  aria-label="search entities"
+  [matMenuTriggerFor]="menu">
+  <mat-icon>{{ label }}</mat-icon>
+</button>
+<!--Menu item with children menu-->
+<button
+  id="expandable-button"
+  *ngIf="!isRootItem"
+  mat-menu-item
+  [matMenuTriggerFor]="menu"
+  (menuOpened)="(items)">
+  <ng-container *ngIf="labelTranslateKey">
+    {{ labelTranslateKey | translate }}
+  </ng-container>
+  <ng-container *ngIf="label">
+    {{ label }}
+  </ng-container>
+</button>
+
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let item of items; let i = index">
+    <!--Item with children-->
+    <app-menu
+      [label]="item.label"
+      [labelTranslateKey]="item.labelTranslateKey"
+      [items]="item.children!"
+      [isRootItem]="false"
+      *ngIf="isExpandable(item); else menuItem"></app-menu>
+
+    <ng-template #menuItem>
+      <!--Divider item-->
+      <mat-divider *ngIf="isDivider(item)"></mat-divider>
+      <!--Final menu item-->
+      <button
+        *ngIf="!isDivider(item)"
+        mat-menu-item
+        id="action-button"
+        (click)="handleItemCallback(item)">
+        <span>
+          <mat-icon
+            id="icon"
+            *ngIf="item.icon"
+            [ngStyle]="{ color: item.iconColor }"
+            >{{ item.icon }}</mat-icon
+          >
+          <ng-container *ngIf="item.labelTranslateKey">
+            {{ item.labelTranslateKey | translate }}
+          </ng-container>
+          <ng-container *ngIf="item.label">
+            {{ item.label }}
+          </ng-container>
+        </span>
+      </button>
+    </ng-template>
+  </ng-container>
+</mat-menu>

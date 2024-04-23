@@ -1,0 +1,30 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "always",
+    "source.organizeImports": "always",
+    "source.fixAll.eslint": "always"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.rulers": [80, 120, 160],
+  "editor.tabSize": 2,
+  "eslint.quiet": false, // Hide warning (hide yellow highlight)
+  "explorer.compactFolders": false,
+  "extensions.ignoreRecommendations": false,
+  "files.associations": {
+    ".eslintrc.json": "jsonc",
+    ".prettierrc.json": "jsonc",
+    "tsconfig.app.json": "jsonc",
+    "tsconfig.json": "jsonc",
+    "tsconfig.spec.json": "jsonc"
+  },
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.exclude": {},
+  "json.schemaDownload.enable": true,
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.tsserver.log": "off"
+}

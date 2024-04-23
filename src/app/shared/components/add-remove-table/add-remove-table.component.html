@@ -1,0 +1,60 @@
+<div class="table-container">
+  <div class="table-header">
+    <h4>{{ labelTranslateKey | translate | uppercase }}</h4>
+
+    <div class="add-remove-buttons">
+      <button
+        id="add-button"
+        (click)="addClicked()"
+        [matTooltip]="addButtonTooltip | translate"
+        [matTooltipDisabled]="!canAdd"
+        [disabled]="!canAdd"
+        type="button"
+        color="primary"
+        mat-raised-button>
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <button
+        id="remove-button"
+        type="button"
+        [matTooltip]="removeButtonTooltip | translate"
+        [matTooltipDisabled]="!canRemove"
+        [disabled]="!canRemove"
+        (click)="removeClicked()"
+        color="warn"
+        mat-raised-button>
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <table
+    mat-table
+    [dataSource]="data"
+    class="table">
+    <ng-container
+      *ngFor="let columnDefinition of columnsConfiguration"
+      [matColumnDef]="columnDefinition.accesor">
+      <th
+        mat-header-cell
+        *matHeaderCellDef>
+        {{ columnDefinition.headerTranslateKey | translate }}
+      </th>
+
+      <td
+        mat-cell
+        *matCellDef="let element">
+        {{ element[columnDefinition.accesor] }}
+      </td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="columnsToDisplay"></tr>
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+</div>

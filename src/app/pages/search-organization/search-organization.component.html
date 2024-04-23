@@ -1,0 +1,237 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="search()">
+  <mat-accordion multi>
+    <mat-expansion-panel
+      displayMode="flat"
+      togglePosition="before"
+      [expanded]="true">
+      <mat-expansion-panel-header>
+        <div class="expansion-panel-header">
+          <mat-panel-title>
+            <div class="form-title">
+              <span>{{ 'searchCriteria' | translate }}</span>
+            </div>
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <div class="button-wrapper">
+              <button
+                type="submit"
+                (click)="$event.stopPropagation()"
+                [matTooltip]="'search' | translate"
+                mat-mini-fab
+                color="primary">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button
+                type="button"
+                (click)="clear($event)"
+                [matTooltip]="'eraseForm' | translate"
+                mat-mini-fab
+                color="primary">
+                <mat-icon>search_off</mat-icon>
+              </button>
+              <button
+                type="button"
+                (click)="closeTab()"
+                [matTooltip]="'close' | translate"
+                mat-mini-fab
+                color="primary">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </mat-panel-description>
+        </div>
+      </mat-expansion-panel-header>
+
+      <div class="row">
+        <mat-form-field class="search-organization-field-large">
+          <mat-label>{{ 'code' | translate }}</mat-label>
+
+          <input
+            matInput
+            type="text"
+            id="code"
+            name="code"
+            formControlName="code"
+            matInput />
+        </mat-form-field>
+
+        <mat-form-field class="search-organization-field-large">
+          <mat-label>{{ 'name' | translate }}</mat-label>
+
+          <input
+            matInput
+            type="text"
+            id="name"
+            name="name"
+            formControlName="name"
+            matInput />
+        </mat-form-field>
+
+        <mat-form-field class="search-organization-field-medium">
+          <mat-label>{{ 'type' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="type"
+            name="type"
+            formControlName="type">
+            <mat-option
+              *ngFor="let type of typeOptions"
+              [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="search-organization-field-large">
+          <mat-label>{{ 'country' | translate }}</mat-label>
+
+          <input
+            matInput
+            formControlName="country"
+            [matAutocomplete]="autoCountry" />
+
+          <mat-autocomplete
+            #autoCountry="matAutocomplete"
+            [displayWith]="displaySelectName">
+            <mat-option
+              *ngFor="let country of filteredCountries"
+              [value]="country">
+              {{ country.code }} - {{ country.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="search-organization-field-large">
+          <mat-label>{{ 'city' | translate }}</mat-label>
+
+          <input
+            matInput
+            formControlName="defaultCity"
+            [matAutocomplete]="autoCity" />
+
+          <mat-autocomplete
+            #autoCity="matAutocomplete"
+            [displayWith]="displaySelectName">
+            <mat-option
+              *ngFor="let city of filteredCities"
+              [value]="city">
+              {{ city.code }} - {{ city.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="search-organization-field-medium">
+          <mat-label>{{ 'financialStatusType' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="financialStatusType"
+            name="financialStatusType"
+            formControlName="financialStatusType">
+            <mat-option
+              *ngFor="let option of financialStatusOptions"
+              [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="search-organization-field-medium">
+          <mat-label>{{ 'customer' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="isCustomer"
+            name="isCustomer"
+            formControlName="isCustomer">
+            <mat-option
+              *ngFor="let option of yesNoOption | keyvalue"
+              [value]="option.value">
+              {{ option.key | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="search-organization-field-medium">
+          <mat-label>{{ 'provider' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="isProvider"
+            name="isProvider"
+            formControlName="isProvider">
+            <mat-option
+              *ngFor="let option of yesNoOption | keyvalue"
+              [value]="option.value">
+              {{ option.key | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="search-organization-field-medium">
+          <mat-label>{{ 'active' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="isActive"
+            name="isActive"
+            formControlName="isActive">
+            <mat-option
+              *ngFor="let option of yesNoOption | keyvalue"
+              [value]="option.value">
+              {{ option.key | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="search-organization-field-medium">
+          <mat-label>{{ 'billedCurrencyLocked' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="billedCurrencyLocked"
+            name="billedCurrencyLocked"
+            formControlName="isBilledCurrencyLocked">
+            <mat-option
+              *ngFor="let option of yesNoOption | keyvalue"
+              [value]="option.value">
+              {{ option.key | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="search-organization-field-medium">
+          <mat-label>{{ 'poRefMandatory' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="poRefMandatory"
+            name="poRefMandatory"
+            formControlName="isPoRefMandatory">
+            <mat-option
+              *ngFor="let option of yesNoOption | keyvalue"
+              [value]="option.value">
+              {{ option.key | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>
+
+<talan-table-generator
+  [data]="data || []"
+  [allColumns]="displayedColumns"
+  [columnsConfiguration]="configuration">
+</talan-table-generator>

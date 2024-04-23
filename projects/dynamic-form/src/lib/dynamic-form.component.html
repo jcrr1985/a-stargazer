@@ -1,0 +1,73 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  novalidate
+  (keyup.enter)="onEnter()">
+  <ng-container *ngFor="let field of fields; let index = index">
+    <ng-container
+      *ngIf="isValidField(field)"
+      talanDynamicComponent
+      [index]="index"
+      [component]="getComponent(field)"
+      [inputs]="{
+        field: getFieldConfiguration(field),
+        control: getFormControl(field)
+      }">
+    </ng-container>
+
+    <!-- <talan-empty
+      *ngIf="field.type === 'empty'"
+      [ngClass]="computeClasses(field, index)"
+      [style.width]="field.width"
+      [field]="field"></talan-empty>
+
+    <talan-input
+      *ngIf="field.type === 'input'"
+      [ngClass]="computeClasses(field, index)"
+      [style.width]="field.width"
+      [field]="field"
+      [control]="$any(form.get($any(field).name))"></talan-input>
+
+    <talan-textarea
+      *ngIf="field.type === 'textarea'"
+      [ngClass]="computeClasses(field, index)"
+      [style.width]="field.width"
+      [field]="field"
+      [control]="$any(form.get($any(field).name))"></talan-textarea>
+
+    <talan-select
+      *ngIf="field.type === 'select'"
+      [ngClass]="computeClasses(field, index)"
+      [style.width]="field.width"
+      [field]="field"
+      [control]="$any(form.get($any(field).name))"></talan-select>
+
+    <talan-checkbox
+      *ngIf="field.type === 'checkbox'"
+      [ngClass]="computeClasses(field, index)"
+      [style.width]="field.width"
+      [field]="field"
+      [control]="$any(form.get($any(field).name))"></talan-checkbox>
+
+    <talan-toggle
+      *ngIf="field.type === 'toggle'"
+      [ngClass]="computeClasses(field, index)"
+      [style.width]="field.width"
+      [field]="field"
+      [control]="$any(form.get($any(field).name))"></talan-toggle>
+
+    <talan-radio
+      *ngIf="field.type === 'radio'"
+      [ngClass]="computeClasses(field, index)"
+      [style.width]="field.width"
+      [field]="field"
+      [control]="$any(form.get($any(field).name))"></talan-radio>
+
+    <talan-slider
+      *ngIf="field.type === 'slider'"
+      [ngClass]="computeClasses(field, index)"
+      [style.width]="field.width"
+      [field]="field"
+      [control]="$any(form.get($any(field).name))"></talan-slider> -->
+  </ng-container>
+</form>

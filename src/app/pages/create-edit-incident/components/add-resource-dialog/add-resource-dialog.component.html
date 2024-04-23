@@ -1,0 +1,58 @@
+<div class="add-resource-dialog">
+  <div
+    mat-dialog-title
+    class="title">
+    <span>{{ 'addResourceToIncident' | translate }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div
+    class="content"
+    mat-dialog-content>
+    <app-autocomplete-async
+      id="field-autocomplete"
+      labelTranslateKey="selectResource"
+      [searchMethod]="getFilteredResources"
+      [displayValueFormatter]="getResourceDisplayValue"
+      (onSelectedOption)="setOptionSelected($event)"></app-autocomplete-async>
+
+    <ng-container *ngIf="suggestedResources.length > 0">
+      <h4>Suggested resources</h4>
+
+      <mat-selection-list
+        id="list-selection"
+        #suggestedResourcesList
+        (selectionChange)="onSuggestionSelectionChange()">
+        <mat-list-option
+          *ngFor="let resource of suggestedResources"
+          [selected]="isResourceSelected(resource)"
+          [value]="resource"
+          checkboxPosition="before">
+          {{ resource.name }}
+        </mat-list-option>
+      </mat-selection-list>
+    </ng-container>
+  </div>
+
+  <div
+    class="actions"
+    mat-dialog-actions>
+    <button
+      id="button-cancel"
+      mat-button
+      [mat-dialog-close]="null">
+      {{ 'cancel' | translate }}
+    </button>
+
+    <button
+      id="button-add"
+      mat-raised-button
+      color="primary"
+      [disabled]="selectedResources.length == 0"
+      [mat-dialog-close]="selectedResources"
+      cdkFocusInitial>
+      {{ 'add' | translate }}
+    </button>
+  </div>
+</div>

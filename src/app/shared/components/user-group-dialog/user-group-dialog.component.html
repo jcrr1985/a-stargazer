@@ -1,0 +1,62 @@
+<form
+  class="user-group-dialog"
+  (ngSubmit)="saveChanges()">
+  <div
+    mat-dialog-title
+    class="title">
+    <span>{{ 'userGroups' | translate }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div
+    class="content"
+    mat-dialog-content>
+    <mat-form-field class="group-select">
+      <mat-label>{{ 'Roles' | translate }}</mat-label>
+
+      <mat-select
+        (selectionChange)="onGroupsSelectionChange($event)"
+        [formControl]="groupsControl"
+        multiple
+        maxlength="2">
+        <mat-option
+          *ngFor="let group of availableGroups"
+          [value]="group"
+          >{{ getGroupTranslateKey(group) | translate }}</mat-option
+        >
+      </mat-select>
+
+      <mat-error> It's mandatory to choose a User group (2 Max.) </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div
+    class="actions"
+    mat-dialog-actions>
+    <button
+      id="button-cancel"
+      mat-button
+      [mat-dialog-close]="null">
+      {{ 'cancel' | translate }}
+    </button>
+
+    <!-- @TRICK: Hidden trigger validation on enter -->
+    <button
+      *ngIf="groupsControl.invalid"
+      type="submit"
+      hidden>
+      {{ 'ok' | translate }}
+    </button>
+
+    <button
+      id="button-send"
+      mat-raised-button
+      color="primary"
+      [disabled]="groupsControl.invalid"
+      type="submit"
+      cdkFocusInitial>
+      {{ 'send' | translate }}
+    </button>
+  </div>
+</form>

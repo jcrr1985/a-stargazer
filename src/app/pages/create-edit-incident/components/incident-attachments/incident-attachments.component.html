@@ -1,0 +1,22 @@
+<div class="file-uploader">
+  <button
+    id="button-upload"
+    type="button"
+    mat-raised-button
+    color="primary"
+    (click)="fileInput.click()">
+    Upload File
+  </button>
+  <input
+    (change)="onFileSelected()"
+    #fileInput
+    type="file"
+    id="file" />
+</div>
+
+<talan-table-generator
+  [data]="selectedFiles"
+  [paginatorOptions]="{ show: false }"
+  [allColumns]="allColumns"
+  [tableOptions]="tableOptions"
+  [columnsConfiguration]="columnsConfiguration"></talan-table-generator>

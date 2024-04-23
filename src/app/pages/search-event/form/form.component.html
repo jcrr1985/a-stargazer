@@ -1,0 +1,216 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="search()">
+  <mat-accordion multi>
+    <mat-expansion-panel
+      displayMode="flat"
+      togglePosition="before"
+      [expanded]="true">
+      <mat-expansion-panel-header>
+        <div class="expansion-panel-header">
+          <mat-panel-title>
+            <div class="form-title">
+              <span>{{ 'searchCriteria' | translate }}</span>
+            </div>
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <div class="button-wrapper">
+              <button
+                (click)="$event.stopPropagation()"
+                type="submit"
+                [matTooltip]="'search' | translate"
+                mat-mini-fab
+                color="primary">
+                <mat-icon>search</mat-icon>
+              </button>
+
+              <button
+                type="button"
+                (click)="clear($event)"
+                [matTooltip]="'eraseForm' | translate"
+                mat-mini-fab
+                color="primary">
+                <mat-icon>search_off</mat-icon>
+              </button>
+
+              <button
+                type="button"
+                (click)="closeTab($event)"
+                [matTooltip]="'close' | translate"
+                mat-mini-fab
+                color="primary">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </mat-panel-description>
+        </div>
+      </mat-expansion-panel-header>
+
+      <div class="row">
+        <mat-form-field>
+          <mat-label>{{ 'event' | translate }}</mat-label>
+
+          <input
+            type="string"
+            name="no"
+            formControlName="no"
+            matInput />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'dateFrom' | translate }}</mat-label>
+
+          <input
+            matInput
+            talanSetDateOnKeyPress
+            [matDatepicker]="periodBegin"
+            formControlName="periodBegin"
+            [max]="form.get('periodEnd')?.value" />
+
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="periodBegin"></mat-datepicker-toggle>
+          <mat-datepicker #periodBegin></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'dateTo' | translate }}</mat-label>
+
+          <input
+            matInput
+            talanSetDateOnKeyPress
+            [matDatepicker]="periodEnd"
+            formControlName="periodEnd"
+            [min]="form.get('periodBegin')?.value" />
+
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="periodEnd"></mat-datepicker-toggle>
+          <mat-datepicker #periodEnd></mat-datepicker>
+          <mat-error *ngIf="form.get('periodEnd')?.hasError('dateGreaterThan')">
+            {{
+              form.get('periodEnd')?.getError('dateGreaterThan').message
+                | translate
+            }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'city' | translate }}</mat-label>
+
+          <input
+            matInput
+            formControlName="city"
+            [matAutocomplete]="autoCity" />
+
+          <mat-autocomplete #autoCity="matAutocomplete">
+            <mat-option
+              *ngFor="let city of filteredCities"
+              [value]="city.code">
+              {{ city.code }} - {{ city.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-checkbox
+          name="parent"
+          class="vertically-centered"
+          formControlName="parent">
+          {{ 'searchParentsEventOnly' | translate }}
+        </mat-checkbox>
+
+        <mat-form-field>
+          <mat-label>{{ 'pmoEventsOnly' | translate }}</mat-label>
+
+          <mat-select
+            formControlName="IsPMO"
+            multiple>
+            <mat-option
+              *ngFor="let option of optionsYesNo | keyvalue"
+              [value]="option.value">
+              {{ option.key | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field>
+          <mat-label>{{ 'type' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="type"
+            name="type"
+            formControlName="eventTypeList">
+            <mat-option
+              *ngFor="let type of eventTypes"
+              [value]="type.code">
+              {{ type.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'status' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="status"
+            name="status"
+            formControlName="statusList">
+            <mat-option
+              *ngFor="let status of statuses | keyvalue"
+              [value]="status.value"
+              >{{ status.value }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'bureau' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="bureau"
+            name="bureau"
+            formControlName="bureauList">
+            <mat-option
+              *ngFor="let bureau of bureaus"
+              [value]="bureau.label">
+              {{ bureau.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'media' | translate }}</mat-label>
+
+          <mat-select
+            multiple
+            id="media"
+            name="media"
+            formControlName="mediaList">
+            <mat-option
+              *ngFor="let media of medias | keyvalue"
+              [value]="media.value">
+              {{ media.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'quoteId' | translate }}</mat-label>
+
+          <input
+            type="text"
+            id="quoteId"
+            name="quoteId"
+            formControlName="quoteId"
+            matInput />
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>

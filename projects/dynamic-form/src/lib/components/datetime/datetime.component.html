@@ -1,0 +1,50 @@
+<mat-form-field
+  [appearance]="$any(field).appearance"
+  [hideRequiredMarker]="field.hideRequiredMarker">
+  <mat-label>{{ field.label }}</mat-label>
+
+  <mat-datetimepicker-toggle
+    [for]="datetimePicker"
+    matSuffix></mat-datetimepicker-toggle>
+  <mat-datetimepicker
+    #datetimePicker
+    [type]="field.pickerType || 'date'"
+    [multiYearSelector]="field.multiYearSelector || false"
+    [twelvehour]="field.twelvehour || false"
+    [startView]="field.startView || 'month'"
+    [mode]="field.mode || 'portrait'"
+    [timeInterval]="field.timeInterval || 1"
+    [ariaNextMonthLabel]="field.ariaNextMonthLabel || 'Next month'"
+    [ariaPrevMonthLabel]="field.ariaPrevMonthLabel || 'Previous month'"
+    [ariaNextYearLabel]="field.ariaNextYearLabel || 'Next year'"
+    [ariaPrevYearLabel]="field.ariaPrevYearLabel || 'Previous year'"
+    [preventSameDateTimeSelection]="field.preventSameDateTimeSelection || false"
+    [panelClass]="field.panelClass || ''"
+    [startAt]="field.startAt"
+    [openOnFocus]="field.openOnFocus || false">
+  </mat-datetimepicker>
+
+  <input
+    matInput
+    talanSetDateOnKeyPress
+    [formControl]="control"
+    [matDatetimepicker]="datetimePicker"
+    [required]="required"
+    [placeholder]="field.placeholder || ''"
+    autocomplete="false" />
+
+  <mat-hint
+    *ngIf="field.hintStart"
+    align="start"
+    >{{ field.hintStart }}</mat-hint
+  >
+  <mat-hint
+    *ngIf="field.hintEnd"
+    align="end"
+    >{{ field.hintEnd }}</mat-hint
+  >
+
+  <mat-error
+    *ngIf="control.invalid"
+    [innerHTML]="errorControlMessage(control) | safeHtml"></mat-error>
+</mat-form-field>

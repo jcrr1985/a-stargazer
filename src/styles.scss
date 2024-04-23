@@ -1,0 +1,20 @@
+@import 'material-theme';
+@import 'base';
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+talan-table-generator {
+  background-color: $font-color-light;
+  margin-top: 0.5rem;
+}

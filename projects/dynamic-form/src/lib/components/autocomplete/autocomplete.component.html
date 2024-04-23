@@ -1,0 +1,113 @@
+<mat-form-field
+  [appearance]="$any(field).appearance"
+  [hideRequiredMarker]="field.hideRequiredMarker">
+  <mat-label>{{ field.label }}</mat-label>
+
+  <input
+    #input
+    matInput
+    [matAutocomplete]="auto"
+    [formControl]="inputControl"
+    [required]="required"
+    type="text"
+    [placeholder]="field.placeholder || ''"
+    (keyup)="keyup($event)" />
+
+  <mat-hint
+    [matTooltip]="onTooltip()"
+    align="start">
+    <ng-template [ngTemplateOutlet]="optionSelected"></ng-template>
+  </mat-hint>
+
+  <mat-hint
+    *ngIf="field.hintEnd"
+    align="end"
+    >{{ field.hintEnd }}</mat-hint
+  >
+
+  <mat-error
+    *ngIf="control.invalid"
+    [innerHTML]="errorControlMessage(control) | safeHtml"></mat-error>
+</mat-form-field>
+
+<!-- Don't use [displayWith]="displayWith" because remove input value when select -->
+<mat-autocomplete
+  #auto="matAutocomplete"
+  (optionSelected)="onOptionSelected($event)">
+  <!-- TODO: Display selected options -->
+  <mat-option
+    [matTooltip]="onTooltip()"
+    disabled>
+    <ng-template [ngTemplateOutlet]="optionSelected"></ng-template>
+  </mat-option>
+
+  <mat-divider></mat-divider>
+
+  <!-- If we're not loading AND the array length is 0, show this -->
+  <mat-option
+    disabled
+    *ngIf="
+      !filteredOptions || (!loading && !error && filteredOptions.length === 0)
+    ">
+    {{ 'dynamicForm.autocomplete.noMatches' | translate }}
+  </mat-option>
+
+  <!-- If request fails -->
+  <mat-option
+    disabled
+    *ngIf="error">
+    {{ 'dynamicForm.autocomplete.failedToFetchOptions' | translate }}
+  </mat-option>
+
+  <!-- If we're loading -->
+  <mat-option
+    disabled
+    *ngIf="loading">
+    <div class="loading"><mat-spinner diameter="35"></mat-spinner></div>
+  </mat-option>
+
+  <!-- If we have results -->
+  <ng-container *ngIf="!loading && !error">
+    <mat-option
+      *ngFor="let option of filteredOptions"
+      [value]="option"
+      [class.option-selected]="isSelected(option)">
+      {{ displayWith(option) }}
+    </mat-option>
+  </ng-container>
+</mat-autocomplete>
+
+<!-- optionSelected template -->
+<ng-template #optionSelected>
+  <ng-container *ngIf="optionsSelected.selected.length === 0">
+    {{ 'dynamicForm.autocomplete.noOptionsSelected' | translate }}
+  </ng-container>
+
+  <ng-container *ngIf="optionsSelected.selected.length > 0">
+    {{ 'dynamicForm.autocomplete.selected' | translate }}
+
+    <ng-container
+      *ngFor="
+        let option of optionsSelected.selected;
+        let index = index;
+        let last = last
+      ">
+      <span *ngIf="index < showMoreMessageItems">
+        {{
+          displayWith(option) +
+            (last || index === showMoreMessageItems - 1 ? '' : ', ')
+        }}
+      </span>
+
+      <span *ngIf="last && index >= showMoreMessageItems">
+        {{
+          'dynamicForm.autocomplete.moreMessageItems'
+            | translate
+              : {
+                  value: optionsSelected.selected.length - showMoreMessageItems
+                }
+        }}
+      </span>
+    </ng-container>
+  </ng-container>
+</ng-template>

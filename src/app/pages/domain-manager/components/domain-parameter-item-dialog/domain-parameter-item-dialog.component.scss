@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 0.5rem;
+  padding: 0 0.5rem;
+
+  ::ng-deep.mat-checkbox {
+    align-self: center;
+  }
+}

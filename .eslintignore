@@ -1,0 +1,12 @@
+/build/**
+/coverage/**
+/tests/**
+/docs/*
+!/docs/*.js
+!/docs/tools/
+/jsdoc/**
+/templates/**
+/tmp/**
+/tools/internal-rules/node_modules/**
+test.js
+!.eslintrc.js

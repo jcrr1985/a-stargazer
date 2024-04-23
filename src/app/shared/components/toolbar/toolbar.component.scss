@@ -1,0 +1,56 @@
+@import 'base.scss';
+
+// Add padding to wrapper as it has issues when using field inside toolbar.
+::ng-deep .mat-form-field-wrapper {
+  padding-top: 1.25em;
+}
+
+.toolbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $material-grey-background-color;
+  height: 64px;
+  .left-actions {
+    display: flex;
+    align-items: center;
+  }
+  .clocks {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: clamp(12px, 1.3vw, 20px);
+    padding: 4px 0;
+    .washington {
+      color: $amber;
+    }
+    .geneve {
+      color: $navy-blue;
+    }
+    .singapore {
+      color: $slimy-green;
+    }
+  }
+
+  .right-actions {
+    font-size: clamp(12px, 1.3vw, 20px);
+    font-weight: 500;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .toolbar-container {
+    .clocks {
+      flex-direction: row;
+      padding: 0;
+
+      .washington,
+      .geneve {
+        margin-right: 1rem;
+      }
+    }
+  }
+}

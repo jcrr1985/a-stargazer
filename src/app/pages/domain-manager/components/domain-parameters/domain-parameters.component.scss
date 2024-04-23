@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.domain-parameters {
+  display: flex;
+  flex-direction: column;
+
+  talan-table-generator:not(.full-height) {
+    height: 35vh;
+    resize: vertical;
+    overflow: auto;
+  }
+}

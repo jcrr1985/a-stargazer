@@ -1,0 +1,77 @@
+<div
+  class="container"
+  [class.panel]="isPanelMode">
+  <div
+    class="controls"
+    *ngIf="showControls">
+    <button
+      mat-icon-button
+      data-testid="expand"
+      aria-label="expand all"
+      (click)="treeControl.expandAll()">
+      <mat-icon>unfold_more</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      data-testid="collapse"
+      aria-label="collapse all"
+      (click)="treeControl.collapseAll()">
+      <mat-icon>unfold_less</mat-icon>
+    </button>
+  </div>
+
+  <mat-tree
+    data-testid="mat-tree"
+    [dataSource]="dataSource"
+    [treeControl]="treeControl">
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node
+      *matTreeNodeDef="let node"
+      matTreeNodePadding>
+      <button
+        data-testid="tree-leaf-button"
+        mat-button
+        (click)="handleNodeClick(node, node.callback)">
+        <mat-icon *ngIf="node.icon">
+          {{ node.icon }}
+        </mat-icon>
+        {{ node.name | translate }}
+      </button>
+    </mat-tree-node>
+
+    <!-- This is the tree node template for empty parent nodes -->
+    <mat-tree-node
+      *matTreeNodeDef="let node; when: isEmpty"
+      matTreeNodePadding>
+      <button
+        style="margin-right: 1rem"
+        mat-icon-button
+        [attr.aria-label]="'Empty node ' + node.name">
+        <mat-icon></mat-icon>
+        <mat-icon>
+          {{ node.icon ? node.icon : 'folder' }}
+        </mat-icon>
+        {{ node.name | translate }}
+      </button>
+    </mat-tree-node>
+
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node
+      *matTreeNodeDef="let node; when: hasChild"
+      matTreeNodePadding>
+      <button
+        style="margin-right: 1rem"
+        mat-icon-button
+        matTreeNodeToggle
+        [attr.aria-label]="'Toggle ' + node.name">
+        <mat-icon>
+          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+        </mat-icon>
+        <mat-icon>
+          {{ treeControl.isExpanded(node) ? 'folder_open' : 'folder' }}
+        </mat-icon>
+        {{ node.name | translate }}
+      </button>
+    </mat-tree-node>
+  </mat-tree>
+</div>

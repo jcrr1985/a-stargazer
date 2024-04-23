@@ -1,0 +1,35 @@
+<div class="change-roles-dialog">
+  <div
+    mat-dialog-title
+    class="title">
+    <span>{{ 'changeRoles' | translate }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <talan-dynamic-form
+    [fields]="fields"
+    (changes)="formChanges($event)">
+  </talan-dynamic-form>
+
+  <div
+    class="actions"
+    mat-dialog-actions>
+    <button
+      id="button-cancel"
+      mat-button
+      (click)="discardChanges()">
+      {{ 'cancel' | translate }}
+    </button>
+
+    <button
+      id="button-add"
+      mat-raised-button
+      color="primary"
+      [disabled]="!selected || selected.length === 0"
+      cdkFocusInitial
+      (click)="saveChanges()">
+      {{ 'send' | translate }}
+    </button>
+  </div>
+</div>

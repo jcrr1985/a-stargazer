@@ -1,0 +1,28 @@
+:host {
+  display: inline-flex;
+
+  ::ng-deep {
+    mat-form-field {
+      width: 100%;
+
+      &.mat-form-field-appearance-outline {
+        .mat-form-field-infix {
+          height: 43.75px;
+          padding: 0;
+
+          mat-checkbox {
+            margin-top: 7px;
+          }
+        }
+      }
+
+      &.mat-form-field-appearance-fill {
+        .mat-form-field-infix {
+          width: fit-content;
+          height: 29.75px;
+          padding: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,431 @@
+<form
+  [formGroup]="incidentForm"
+  (ngSubmit)="saveChanges()"
+  class="incident-form">
+  <div class="incident-form__header">
+    <!-- //////////////////////////////////////////////// -->
+    <!-- TODO: Use the dynamic form between these markers,
+         when it is completed -->
+    <div class="left-input-container">
+      <mat-form-field>
+        <mat-label>{{ 'incidentNo' | translate | uppercase }}</mat-label>
+
+        <input
+          formControlName="incidentNo"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'status' | translate | uppercase }}</mat-label>
+
+        <mat-select
+          required
+          formControlName="status">
+          <mat-option value="OPEN"
+            >{{ 'open' | translate | uppercase }}
+          </mat-option>
+
+          <mat-option value="IN_PROGRESS"
+            >{{ 'inProgress' | translate | uppercase }}
+          </mat-option>
+
+          <mat-option value="CLOSED"
+            >{{ 'closed' | translate | uppercase }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="center-form-section">
+      <div class="center-top-input-container">
+        <div class="timing-input">
+          <div class="date-time-selectors">
+            <mat-form-field>
+              <mat-label>{{ 'timingStart' | translate | uppercase }}</mat-label>
+
+              <input
+                matInput
+                required
+                talanSetDateOnKeyPress
+                formControlName="timingStartDate"
+                [matDatepicker]="timingStartDate"
+                [max]="incidentForm.controls.timingEndDate.value" />
+
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="timingStartDate"></mat-datepicker-toggle>
+
+              <mat-datepicker #timingStartDate></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>{{ 'time' | translate | uppercase }}</mat-label>
+
+              <input
+                [value]="incidentForm.controls.timingStartDate.value"
+                (timeChange)="mergeTimingDateTime($event, 'timingStartDate')"
+                matTimepicker />
+            </mat-form-field>
+          </div>
+
+          <span>-</span>
+
+          <div class="date-time-selectors">
+            <mat-form-field>
+              <mat-label>{{ 'timingEnd' | translate | uppercase }}</mat-label>
+
+              <input
+                *ngIf="!incidentForm.controls.timingStartDate.value"
+                matInput
+                disabled />
+
+              <input
+                matInput
+                required
+                talanSetDateOnKeyPress
+                *ngIf="incidentForm.controls.timingStartDate.value"
+                formControlName="timingEndDate"
+                [matDatepicker]="timingEndDate"
+                [min]="incidentForm.controls.timingStartDate.value" />
+
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="timingEndDate"></mat-datepicker-toggle>
+
+              <mat-datepicker #timingEndDate></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>{{ 'time' | translate | uppercase }}</mat-label>
+
+              <input
+                *ngIf="!incidentForm.controls.timingStartDate.value"
+                matInput
+                disabled />
+
+              <input
+                matTimepicker
+                *ngIf="incidentForm.controls.timingStartDate.value"
+                [value]="incidentForm.controls.timingEndDate.value"
+                (timeChange)="mergeTimingDateTime($event, 'timingEndDate')" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-form-field>
+          <mat-label>{{ 'duringTXM' | translate | uppercase }}</mat-label>
+
+          <mat-select
+            required
+            formControlName="duringTransmission">
+            <mat-option [value]="true">{{
+              'yes' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option [value]="false">{{
+              'no' | translate | uppercase
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'duration' | translate | uppercase }}</mat-label>
+          <input
+            formControlName="duration"
+            matInput />
+        </mat-form-field>
+
+        <div class="checkboxes">
+          <mat-checkbox
+            color="primary"
+            labelPosition="before"
+            formControlName="isReviewed"
+            >{{ 'reviewed' | translate }}</mat-checkbox
+          >
+
+          <mat-checkbox
+            color="primary"
+            labelPosition="before"
+            formControlName="isServiceRestablished"
+            >{{ 'serviceReestablished' | translate }}</mat-checkbox
+          >
+        </div>
+      </div>
+
+      <div class="center-bottom-input-container">
+        <mat-form-field>
+          <mat-label>{{ 'category' | translate | uppercase }}</mat-label>
+
+          <mat-select
+            formControlName="category"
+            required
+            ><mat-option
+              *ngFor="let category of availableCategories | async"
+              [value]="category"
+              >{{ category.value }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'subCategory' | translate | uppercase }}</mat-label>
+
+          <mat-select
+            formControlName="subcategory"
+            required>
+            <mat-option
+              *ngFor="let subcategory of availableSubcategories"
+              [value]="subcategory">
+              {{ subcategory.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'owner' | translate | uppercase }}</mat-label>
+
+          <mat-select
+            formControlName="owner"
+            required>
+            ><mat-option
+              *ngFor="let owner of availableOwners | async"
+              [value]="owner">
+              {{ owner.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'duringProg' | translate | uppercase }}</mat-label>
+
+          <mat-select
+            formControlName="duringProgram"
+            required>
+            <mat-option [value]="true">{{
+              'yes' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option [value]="false">{{
+              'no' | translate | uppercase
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'essaResponsible' | translate | uppercase }}</mat-label>
+
+          <mat-select formControlName="essaResponsible">
+            <mat-option value="NO">{{
+              'no' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option value="UNKNOWN">{{
+              'unknown' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option value="YES">{{
+              'yes' | translate | uppercase
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'refeed' | translate | uppercase }}</mat-label>
+
+          <mat-select formControlName="refeed">
+            <mat-option value="EVC_RECORDING">{{
+              'evcRecording' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option value="NO">{{
+              'no' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option value="ORIGIN">{{
+              'origin' | translate | uppercase
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'region' | translate | uppercase }}</mat-label>
+
+          <mat-select formControlName="region">
+            <mat-option value="ALL">{{
+              'all' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option value="AMERICA">AMERICA</mat-option>
+
+            <mat-option value="ASIA">ASIA</mat-option>
+
+            <mat-option value="EUROPE">EUROPE</mat-option>
+
+            <mat-option value="FIBER">FIBER</mat-option>
+
+            <mat-option value="OTHER">{{
+              'other' | translate | uppercase
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox
+          color="primary"
+          labelPosition="before"
+          formControlName="displayOnReport"
+          >{{ 'displayOnReport' | translate }}</mat-checkbox
+        >
+        <mat-form-field>
+          <mat-label>{{
+            'serviceAffecting' | translate | uppercase
+          }}</mat-label>
+
+          <mat-select
+            required
+            formControlName="serviceAffecting">
+            <mat-option value="NO">{{
+              'no' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option value="UNKNOWN">{{
+              'unknown' | translate | uppercase
+            }}</mat-option>
+
+            <mat-option value="YES">{{
+              'yes' | translate | uppercase
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="last-input">
+          <mat-label>{{ 'subject' | translate | uppercase }}</mat-label>
+          <input
+            formControlName="subject"
+            matInput />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="right-buttons-container">
+      <div class="buttons">
+        <button
+          mat-mini-fab
+          id="button-save"
+          [matTooltip]="'save' | translate"
+          [class.spinner]="isSaving"
+          [disabled]="isSaving"
+          [matTooltipDisabled]="isSaving"
+          type="submit"
+          color="primary">
+          <mat-icon>save</mat-icon>
+        </button>
+
+        <button
+          id="button-send-mail"
+          type="button"
+          mat-mini-fab
+          [matTooltip]="'resendNotification' | translate"
+          [matTooltipDisabled]="!isEditMode"
+          [disabled]="!isEditMode"
+          color="primary">
+          <mat-icon>mail</mat-icon>
+        </button>
+
+        <button
+          id="button-reload-tab"
+          type="button"
+          mat-mini-fab
+          [matTooltip]="'reload' | translate"
+          [matTooltipDisabled]="!isEditMode"
+          [disabled]="!isEditMode"
+          color="primary">
+          <mat-icon>sync</mat-icon>
+        </button>
+
+        <button
+          type="button"
+          mat-mini-fab
+          [matTooltip]="'delete' | translate"
+          [matTooltipDisabled]="!isEditMode"
+          [disabled]="!isEditMode"
+          color="primary">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button
+          id="button-close-tab"
+          type="button"
+          mat-mini-fab
+          [matTooltip]="'close' | translate"
+          (click)="closePage()"
+          color="primary">
+          <mat-icon>close</mat-icon>
+        </button>
+
+        <button
+          id="button-share"
+          type="button"
+          *ngIf="isEditMode"
+          mat-mini-fab
+          [matTooltip]="'share' | translate"
+          color="primary">
+          <mat-icon>share</mat-icon>
+        </button>
+      </div>
+
+      <span
+        [matTooltip]="'creationUser' | translate"
+        class="last-edit">
+        <mat-icon class="icon">border_color</mat-icon>legrand{{ '@' }}GVA.EBU.CH
+        - 15/09/2023 - 09:12</span
+      >
+    </div>
+    <!-- //////////////////////////////////////////////// -->
+  </div>
+  <div class="incident-form__body">
+    <div class="body-selectors">
+      <span
+        [matTooltip]="'displayDashboard' | translate"
+        (click)="body = 'home'"
+        class="selector"
+        [ngClass]="{ active: body === 'home' }"
+        ><mat-icon>home</mat-icon></span
+      >
+      <span
+        [matTooltip]="'displayNotes' | translate"
+        [matTooltipDisabled]="true"
+        class="selector disabled"
+        [ngClass]="{ active: body === 'notes' }"
+        ><mat-icon>assignment</mat-icon></span
+      >
+      <span
+        [matTooltip]="'displayAttachments' | translate"
+        [matTooltipDisabled]="true"
+        class="selector disabled"
+        [ngClass]="{ active: body === 'attachment' }"
+        ><mat-icon>attachment</mat-icon></span
+      >
+      <span
+        [matTooltip]="'auditLogs' | translate"
+        class="selector"
+        (click)="body = 'history'"
+        [ngClass]="{ active: body === 'history' }"
+        ><mat-icon>history</mat-icon></span
+      >
+    </div>
+
+    <div class="body-container">
+      <app-incident-summary
+        [hidden]="body !== 'home'"
+        formGroupName="summary">
+      </app-incident-summary>
+
+      <app-incident-attachments [hidden]="body !== 'attachment'">
+      </app-incident-attachments>
+
+      <app-incident-update-history
+        *ngIf="body === 'history'"
+        [incidentId]="65538">
+      </app-incident-update-history>
+    </div>
+  </div>
+</form>

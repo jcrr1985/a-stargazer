@@ -1,0 +1,31 @@
+<div
+  class="tabbed-container"
+  [class]="'entity ' + activeTabEntity + '-background'">
+  <nav mat-tab-nav-bar>
+    <a
+      mat-tab-link
+      *ngFor="let tab of tabs; index as i"
+      [class]="'entity ' + tab.entity + '-background'"
+      (click)="tabChange(i)"
+      [active]="activeTabIndex === i">
+      <mat-icon
+        style="font-size: 20px; margin-right: 0.5rem"
+        *ngIf="tab.icon"
+        >{{ tab.icon }}</mat-icon
+      >
+      <span
+        class="tab-text"
+        [ngClass]="{ 'is-edited': tab.isEdited }"
+        >{{ tab.label | translate }}</span
+      >
+      <span
+        *ngIf="tab.id === activeTabId"
+        data-testid="close-button"
+        style="font-size: 20px; margin-left: 1rem"
+        (click)="tabClose($event, tab.id)"
+        ><mat-icon style="font-size: 20px">close</mat-icon></span
+      >
+    </a>
+  </nav>
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,18 @@
+.summary {
+  display: flex;
+  overflow: auto;
+
+  .summary-tables {
+    width: 50%;
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .summary-text-areas {
+    width: 50%;
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+}

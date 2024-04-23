@@ -1,0 +1,19 @@
+<app-toolbar (onGearClick)="toggleTree()"></app-toolbar>
+
+<div class="container">
+  <div
+    class="side-section"
+    *ngIf="showTree">
+    <app-tree
+      [treeData]="treeData"
+      [isPanelMode]="true"
+      [showControls]="true"></app-tree>
+  </div>
+
+  <div class="main-section">
+    <app-tabbed-container *ngIf="tabs.length > 0">
+      <router-outlet></router-outlet>
+    </app-tabbed-container>
+    <app-welcome *ngIf="tabs.length === 0"></app-welcome>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "recommendations": [
+    // Mandatory: Code of Practice guidelines
+    "dbaeumer.vscode-eslint", // ESLint
+    "EditorConfig.EditorConfig", // EditorConfig
+    "esbenp.prettier-vscode", // Prettier
+    // Optional: Git
+    "eamodio.gitlens", // Visualize code authorship at a glance via Git blame annotations and CodeLens, ...
+    // Optional: Angular
+    "cyrilletuzi.angular-schematics", // Quick generate Components/Modules, ... Or "alexiv.vscode-angular2-files",
+    "Angular.ng-template", // See documentation
+    "johnpapa.Angular2", // Angular Snippets
+    "infinity1207.angular2-switcher", // Easily navigate to typescript(.ts)|template(.html)|style(.scss/.sass/.less/.css) in angular project.
+    "obenjiro.arrr", // It provides Rapid Refactoring geeRs for your Angular codebase.
+    "formulahendry.auto-rename-tag", // Rename tag
+    // "1tontech.angular-material", // Providers snippets Angular Material 2, Angular Flex layout 1, Teradata Covalent 1 & Material icons
+    // Optional: More
+    "ryanluker.vscode-coverage-gutters", // Coverage
+    "yoavbls.pretty-ts-errors", // TypeScript
+    "vscode-icons-team.vscode-icons", // More icons
+    "usernamehw.errorlens" // Lint inline
+    // "bierner.jsdoc-markdown-highlighting" // JSDoc
+    // "SonarSource.sonarlint-vscode", // Sonar
+    // "quicktype.quicktype", // Transform JSON to Interface declaration.
+    // "ChakrounAnas.turbo-console-log", // Quick add console.log Pressing ctrl + alt + L (Windows) or ctrl + option + L (Mac)
+    // "wayou.vscode-todo-highlight", // Highlight comments 'TODO:'
+    // wix.vscode-import-cost, // size of imports
+  ]
+}

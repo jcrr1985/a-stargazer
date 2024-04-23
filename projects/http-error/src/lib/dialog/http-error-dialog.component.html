@@ -1,0 +1,19 @@
+<button
+  mat-icon-button
+  class="close-button"
+  [mat-dialog-close]="message">
+  <mat-icon>close</mat-icon>
+</button>
+
+<h1 mat-dialog-title>Error</h1>
+
+<mat-dialog-content [innerHTML]="message"></mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    [mat-dialog-close]="message"
+    cdkFocusInitial>
+    Close
+  </button>
+</mat-dialog-actions>

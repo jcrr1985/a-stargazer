@@ -1,0 +1,302 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "neos": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "displayBlock": true
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/developers.txt",
+              "src/robots.txt",
+              "src/assets"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            },
+            "styles": ["src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            },
+            "uat": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.uat.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "neos:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "neos:build:production"
+            },
+            "uat": {
+              "browserTarget": "neos:build:uat"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/developers.txt",
+              "src/robots.txt",
+              "src/assets"
+            ],
+            "codeCoverageExclude": ["./src/testing/**", "./src/**/config/**"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            },
+            "styles": [
+              "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
+        }
+      }
+    },
+    "dynamic-form": {
+      "projectType": "library",
+      "root": "projects/dynamic-form",
+      "sourceRoot": "projects/dynamic-form/src",
+      "prefix": "talan",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/dynamic-form/tsconfig.lib.json",
+            "project": "projects/dynamic-form/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dynamic-form/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dynamic-form/src/test.ts",
+            "tsConfig": "projects/dynamic-form/tsconfig.spec.json",
+            "karmaConfig": "projects/dynamic-form/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/dynamic-form/**/*.ts",
+              "projects/dynamic-form/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "table-generator": {
+      "projectType": "library",
+      "root": "projects/table-generator",
+      "sourceRoot": "projects/table-generator/src",
+      "prefix": "talan",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/table-generator/tsconfig.lib.json",
+            "project": "projects/table-generator/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/table-generator/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/table-generator/src/test.ts",
+            "tsConfig": "projects/table-generator/tsconfig.spec.json",
+            "karmaConfig": "projects/table-generator/karma.conf.js",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/table-generator/**/*.ts",
+              "projects/table-generator/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "loading": {
+      "projectType": "library",
+      "root": "projects/loading",
+      "sourceRoot": "projects/loading/src",
+      "prefix": "talan",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/loading/tsconfig.lib.json",
+            "project": "projects/loading/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/loading/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/loading/src/test.ts",
+            "tsConfig": "projects/loading/tsconfig.spec.json",
+            "karmaConfig": "projects/loading/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/loading/**/*.ts",
+              "projects/loading/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "http-error": {
+      "projectType": "library",
+      "root": "projects/http-error",
+      "sourceRoot": "projects/http-error/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/http-error/tsconfig.lib.json",
+            "project": "projects/http-error/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/http-error/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/http-error/src/test.ts",
+            "tsConfig": "projects/http-error/tsconfig.spec.json",
+            "karmaConfig": "projects/http-error/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/http-error/**/*.ts",
+              "projects/http-error/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "neos",
+  "cli": {
+    "analytics": false,
+    "defaultCollection": "@angular-eslint/schematics"
+  }
+}

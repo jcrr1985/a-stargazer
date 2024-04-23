@@ -1,0 +1,36 @@
+<mat-form-field
+  [appearance]="$any(field).appearance"
+  [hideRequiredMarker]="field.hideRequiredMarker">
+  <!-- If 'field.label' doesn't exist mat-select use 'field.placeholder' as 'label'  -->
+  <mat-label *ngIf="field.label">{{ field.label }}</mat-label>
+
+  <!-- Show model difference between MultipleSelectConfiguration & SimpleSelectConfiguration -->
+  <mat-select
+    [formControl]="control"
+    [required]="required"
+    [placeholder]="field.placeholder || ''"
+    [multiple]="field.multiple"
+    [compareWith]="compareFn">
+    <mat-option
+      *ngFor="let option of field.options"
+      [value]="option">
+      {{ displayWith(option) }}
+    </mat-option>
+  </mat-select>
+
+  <mat-hint
+    *ngIf="field.hintStart"
+    align="start"
+    >{{ field.hintStart }}</mat-hint
+  >
+
+  <mat-hint
+    *ngIf="field.hintEnd"
+    align="end"
+    >{{ field.hintEnd }}</mat-hint
+  >
+
+  <mat-error
+    *ngIf="control.invalid"
+    [innerHTML]="errorControlMessage(control) | safeHtml"></mat-error>
+</mat-form-field>

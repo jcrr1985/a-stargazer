@@ -1,0 +1,42 @@
+<mat-form-field
+  class="search-field"
+  appearance="fill">
+  <mat-label>{{ 'quickSearch' | translate }}</mat-label>
+  <input
+    id="quick-search"
+    matInput
+    type="text"
+    [formControl]="searchControl"
+    matInput
+    [matAutocomplete]="quickSearch" />
+
+  <button
+    mat-button
+    *ngIf="searchControl.value"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="onQuickSearchClear()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-autocomplete
+    (optionSelected)="selectOption($event.option.value)"
+    #quickSearch="matAutocomplete"
+    panelWidth="40%"
+    [displayWith]="formatResult">
+    <mat-option
+      id="no-matches-feedback"
+      disabled
+      *ngIf="quickSearchResults.length === 0">
+      {{ 'noMatches' | translate }}
+    </mat-option>
+    <ng-container *ngIf="quickSearchResults.length > 0">
+      <mat-option
+        *ngFor="let option of quickSearchResults"
+        [value]="option">
+        {{ formatResult(option) }}
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+</mat-form-field>

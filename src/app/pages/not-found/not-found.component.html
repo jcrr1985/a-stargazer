@@ -1,0 +1,13 @@
+<div class="container">
+  <img
+    src="/assets/signal-lost.png"
+    alt="" />
+  <h1 class="title">{{ 'notFoundTitle' | translate }}</h1>
+  <a
+    mat-raised-button
+    color="primary"
+    *ngIf="path"
+    [routerLink]="path"
+    >{{ 'goBack' | translate }}</a
+  >
+</div>

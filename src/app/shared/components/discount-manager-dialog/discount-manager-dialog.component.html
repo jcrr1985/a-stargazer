@@ -1,0 +1,24 @@
+<talan-dynamic-form
+  [fields]="fields"
+  (submit)="formSubmit($event)"
+  (changes)="formChanges($event)">
+</talan-dynamic-form>
+
+<div
+  class="actions"
+  mat-dialog-actions>
+  <button
+    id="button-cancel"
+    (click)="closeDialog()"
+    mat-button>
+    {{ 'cancel' | translate }}
+  </button>
+
+  <button
+    id="button-add"
+    mat-raised-button
+    color="primary"
+    (click)="submit()">
+    {{ 'add' | translate }}
+  </button>
+</div>

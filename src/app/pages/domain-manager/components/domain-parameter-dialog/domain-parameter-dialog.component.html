@@ -1,0 +1,93 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="formValueToDomainParameter()"
+  class="add-domain-parameter-dialog">
+  <div
+    mat-dialog-title
+    class="title">
+    <span>{{ 'domainParameter' | translate }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div
+    class="content"
+    mat-dialog-content>
+    <div class="form-container">
+      <mat-form-field>
+        <mat-label>{{ 'groupCode' | translate | uppercase }}</mat-label>
+
+        <mat-select
+          required
+          formControlName="groupCode">
+          <mat-option value="PROPERTY PARAMETER">PROPERTY PARAMETER</mat-option>
+          <mat-option value="DOMAIN PARAMETER">DOMAIN PARAMETER</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'code' | translate | uppercase }}</mat-label>
+
+        <input
+          formControlName="code"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'label' | translate | uppercase }}</mat-label>
+
+        <input
+          formControlName="label"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'externalLabel' | translate | uppercase }}</mat-label>
+
+        <input
+          formControlName="externalLabel"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'domainStatus' | translate | uppercase }}</mat-label>
+
+        <mat-select
+          required
+          formControlName="domainStatus">
+          <mat-option value="ACTIVE">ACTIVE</mat-option>
+          <mat-option value="INACTIVE">INACTIVE</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div
+    class="actions"
+    mat-dialog-actions>
+    <button
+      id="button-cancel"
+      mat-button
+      [mat-dialog-close]="null">
+      {{ 'cancel' | translate }}
+    </button>
+
+    <!-- @TRICK: Hidden trigger validation on enter -->
+    <button
+      *ngIf="form.invalid"
+      type="submit"
+      hidden>
+      {{ 'ok' | translate }}
+    </button>
+
+    <button
+      id="button-add"
+      mat-raised-button
+      color="primary"
+      [disabled]="form.invalid"
+      type="submit"
+      cdkFocusInitial>
+      {{ 'ok' | translate }}
+    </button>
+  </div>
+</form>

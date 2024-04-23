@@ -1,0 +1,99 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="formValueToDomainParameter()"
+  class="add-domain-parameter-item-dialog">
+  <div
+    mat-dialog-title
+    class="title">
+    <span>{{ 'domainItem' | translate }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div
+    class="content"
+    mat-dialog-content>
+    <div class="form-container">
+      <mat-form-field>
+        <mat-label>{{ 'sequence' | translate | uppercase }}</mat-label>
+        <input
+          formControlName="sequence"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'code' | translate | uppercase }}</mat-label>
+        <input
+          formControlName="code"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'isoCode' | translate | uppercase }}</mat-label>
+        <input
+          formControlName="isoCode"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'label' | translate | uppercase }}</mat-label>
+        <input
+          formControlName="label"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'externalLabel' | translate | uppercase }}</mat-label>
+        <input
+          formControlName="externalLabel"
+          matInput />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'status' | translate | uppercase }}</mat-label>
+        <mat-select
+          required
+          formControlName="status">
+          <mat-option value="ACTIVE">ACTIVE</mat-option>
+          <mat-option value="INACTIVE">INACTIVE</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-checkbox
+        color="primary"
+        labelPosition="before"
+        formControlName="extView"
+        >{{ 'published' | translate }}</mat-checkbox
+      >
+    </div>
+  </div>
+
+  <div
+    class="actions"
+    mat-dialog-actions>
+    <button
+      id="button-cancel"
+      mat-button
+      [mat-dialog-close]="null">
+      {{ 'cancel' | translate }}
+    </button>
+
+    <!-- @TRICK: Hidden trigger validation on enter -->
+    <button
+      *ngIf="form.invalid"
+      type="submit"
+      hidden>
+      {{ 'ok' | translate }}
+    </button>
+
+    <button
+      id="button-add"
+      mat-raised-button
+      color="primary"
+      [disabled]="form.invalid"
+      type="submit"
+      cdkFocusInitial>
+      {{ 'ok' | translate }}
+    </button>
+  </div>
+</form>

@@ -1,0 +1,10 @@
+@import 'base.scss';
+
+:host {
+  display: block;
+}
+
+.search-field {
+  font-size: 12px;
+  min-width: 250px;
+}

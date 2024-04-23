@@ -1,0 +1,103 @@
+$bg-selected: lightcyan;
+
+[hidden] {
+  visibility: hidden;
+}
+
+:host {
+  display: block;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: #fff;
+  color: black;
+
+  .table-header-left {
+    display: flex;
+    flex: 1 0 auto;
+    ::ng-deep .mat-form-field-wrapper {
+      padding: 16px 0;
+    }
+  }
+
+  .table-header-right {
+    display: flex;
+    justify-items: flex-end;
+    align-items: center;
+    flex: 0 1 auto;
+
+    .table-result + * {
+      margin-left: 16px;
+    }
+
+    .table-actions {
+      > * + * {
+        margin-left: 16px;
+      }
+    }
+  }
+}
+
+.table-content {
+  width: 100%;
+  .mat-column-name {
+    padding: 0 15px;
+  }
+}
+
+// RowsSelector
+.row-selected {
+  background: $bg-selected;
+}
+
+.column-selector-icon {
+  cursor: pointer;
+}
+
+::ng-deep.mat-menu-panel.columns-selector-menu {
+  max-height: 50vh;
+}
+
+// Actions menu per row (contextmenu - mouse right click)
+::ng-deep.mat-menu-panel.actions-selector-menu {
+  max-height: 50vh;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-container input {
+  width: 140px;
+  margin-right: 32px;
+}
+
+.clear-button {
+  position: absolute;
+  text-align: middle;
+  right: 8px;
+}
+
+.clear-button button {
+  width: 24px;
+}
+
+.custom-table-header-cell,
+.custom-table-cell {
+  padding-right: 15px;
+}
+
+.custom-table-header-cell {
+  white-space: nowrap;
+}
+
+::ng-deep .tooltip-wrapper {
+  overflow-y: auto;
+  white-space: pre-wrap;
+  padding: 0.5rem;
+}

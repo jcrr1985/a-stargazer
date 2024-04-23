@@ -1,0 +1,80 @@
+<form
+  [formGroup]="form"
+  class="summary">
+  <div class="summary-tables">
+    <app-add-remove-table
+      id="table-transmissions"
+      labelTranslateKey="transmissionNo"
+      [columnsConfiguration]="transmissionNoColumns"
+      [data]="selectedTransmissions"
+      (onAdd)="addTransmissionNo()"
+      (onRemove)="removeTransmissionNo()"
+      addButtonTooltip="addTransmission"
+      removeButtonTooltip="removeTransmission"
+      [canRemove]="selectedTransmissions.length > 0"></app-add-remove-table>
+
+    <app-add-remove-table
+      id="table-resources"
+      labelTranslateKey="resourceCode"
+      [columnsConfiguration]="resourceCodeColumns"
+      [data]="selectedResources"
+      (onAdd)="addResourceCode()"
+      (onRemove)="removeResourceCode()"
+      addButtonTooltip="addResource"
+      removeButtonTooltip="removeResource"
+      [canRemove]="selectedResources.length > 0"></app-add-remove-table>
+
+    <app-add-remove-table
+      id="table-organizations"
+      labelTranslateKey="organizationCode"
+      [columnsConfiguration]="organizationCodeColumns"
+      [data]="selectedOrganizations"
+      (onAdd)="addOrganizationCode()"
+      (onRemove)="removeOrganizationCode()"
+      addButtonTooltip="addOrganization"
+      removeButtonTooltip="removeOrganization"
+      [canRemove]="selectedOrganizations.length > 0"></app-add-remove-table>
+  </div>
+
+  <div class="summary-text-areas">
+    <mat-form-field>
+      <mat-label>{{ 'description' | translate | uppercase }}</mat-label>
+
+      <textarea
+        id="input-description"
+        formControlName="description"
+        matInput
+        rows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'informationToCaller' | translate | uppercase }}</mat-label>
+
+      <textarea
+        id="input-caller"
+        formControlName="informationToCaller"
+        matInput
+        rows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'actionToBeTaken' | translate | uppercase }}</mat-label>
+
+      <textarea
+        id="input-action"
+        formControlName="action"
+        matInput
+        rows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'resolution' | translate | uppercase }}</mat-label>
+
+      <textarea
+        id="input-resolution"
+        formControlName="resolution"
+        matInput
+        rows="8"></textarea>
+    </mat-form-field>
+  </div>
+</form>

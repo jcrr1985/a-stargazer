@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}

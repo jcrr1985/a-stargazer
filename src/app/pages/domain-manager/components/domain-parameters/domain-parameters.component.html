@@ -1,0 +1,35 @@
+<div class="domain-parameters">
+  <div class="main-table">
+    <talan-table-generator
+      [ngClass]="{ 'full-height': !selectedDomainParameter }"
+      [data]="data"
+      [tableOptions]="mainTableOptions"
+      [allColumns]="mainTableColumns"
+      [columnsConfiguration]="mainTableConfiguration"
+      [tableActions]="tableActions"
+      [rowActions]="rowActions"
+      (tableActionEvent)="onTableAction($event, TableId.MAIN)"
+      (rowActionEvent)="onRowAction($event, TableId.MAIN)"
+      (rowClick)="onRowClicked($event)"
+      (rowDblClick)="
+        onRowDoubleClicked($event, TableId.MAIN)
+      "></talan-table-generator>
+  </div>
+
+  <div
+    class="items-table"
+    *ngIf="selectedDomainParameter">
+    <talan-table-generator
+      [data]="selectedDomainParameter.items"
+      [tableOptions]="itemsTableOptions"
+      [allColumns]="itemsTableColumns"
+      [columnsConfiguration]="itemsTableConfiguration"
+      [tableActions]="tableActions"
+      [rowActions]="rowActions"
+      (tableActionEvent)="onTableAction($event, TableId.ITEMS)"
+      (rowActionEvent)="onRowAction($event, TableId.ITEMS)"
+      (rowDblClick)="
+        onRowDoubleClicked($event, TableId.ITEMS)
+      "></talan-table-generator>
+  </div>
+</div>

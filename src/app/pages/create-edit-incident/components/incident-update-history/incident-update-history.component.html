@@ -1,0 +1,7 @@
+<talan-table-generator
+  id="table-audit"
+  [paginatorOptions]="paginatorOptions"
+  [tableOptions]="tableOptions"
+  [data]="(audits | async) || []"
+  [allColumns]="allColumns"
+  [columnsConfiguration]="columnsConfiguration"></talan-table-generator>

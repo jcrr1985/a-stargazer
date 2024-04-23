@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+.add-organization-dialog {
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+
+    .title-icon {
+      font-size: 40px;
+      height: unset;
+      width: unset;
+    }
+  }
+
+  .content {
+    margin-top: 1rem;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,49 @@
+<mat-form-field
+  *ngIf="!field.noFormField"
+  [appearance]="$any(field).appearance"
+  [hideRequiredMarker]="field.hideRequiredMarker"
+  floatLabel="always"
+  class="mat-form-field--no-underline">
+  <mat-label *ngIf="field.label">{{ field.label }}</mat-label>
+
+  <input
+    matInput
+    hidden
+    [required]="required"
+    [placeholder]="field.placeholder || ''" />
+
+  <ng-template [ngTemplateOutlet]="default"></ng-template>
+
+  <mat-hint align="start">
+    <ng-container
+      *ngIf="!control.touched || (field.hintStart && control.valid)">
+      {{ field.hintStart }}
+    </ng-container>
+
+    <!-- Fixing mat-form-field problem not show mat-error with this trick -->
+    <ng-container *ngIf="control.touched && control.invalid">
+      <mat-error
+        [innerHTML]="errorControlMessage(control) | safeHtml"></mat-error>
+    </ng-container>
+  </mat-hint>
+
+  <mat-hint
+    *ngIf="!control.touched || (field.hintEnd && control.valid)"
+    align="end"
+    >{{ field.hintEnd }}</mat-hint
+  >
+</mat-form-field>
+
+<div *ngIf="field.noFormField">
+  <ng-template [ngTemplateOutlet]="default"></ng-template>
+</div>
+
+<!-- Default template -->
+<ng-template #default>
+  <mat-slide-toggle
+    [formControl]="control"
+    [required]="required"
+    [labelPosition]="field.labelPosition || 'after'"
+    >{{ field.label }}</mat-slide-toggle
+  >
+</ng-template>

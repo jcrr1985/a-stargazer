@@ -1,0 +1,246 @@
+@import './colors';
+
+// ENTITIES
+.entity {
+  &.customer-order {
+    color: $customer-order-primary-color;
+
+    &-background {
+      background-color: $customer-order-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $customer-order-secondary-color;
+      }
+    }
+  }
+
+  &.transmission {
+    color: $transmission-primary-color;
+
+    &-background {
+      background-color: $transmission-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $transmission-secondary-color;
+      }
+    }
+  }
+
+  &.event {
+    color: $event-primary-color;
+    &-background {
+      background-color: $event-primary-color;
+      color: $font-color-dark;
+
+      &.bg-secondary {
+        background-color: $event-secondary-color;
+      }
+    }
+  }
+
+  &.packages {
+    color: $packages-primary-color;
+
+    &-background {
+      background-color: $packages-primary-color;
+      color: $font-color-dark;
+
+      &.bg-secondary {
+        background-color: $packages-secondary-color;
+      }
+    }
+  }
+
+  &.organization {
+    color: $organization-primary-color;
+
+    &-background {
+      background-color: $organization-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $organization-secondary-color;
+      }
+    }
+  }
+
+  &.city {
+    color: $city-primary-color;
+
+    &-background {
+      background-color: $city-primary-color;
+      color: $font-color-dark;
+
+      &.bg-secondary {
+        background-color: $city-secondary-color;
+      }
+    }
+  }
+
+  &.contact {
+    color: $contact-primary-color;
+
+    &-background {
+      background-color: $contact-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $contact-secondary-color;
+      }
+    }
+  }
+
+  &.resource {
+    color: $resource-primary-color;
+
+    &-background {
+      background-color: $resource-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $resource-secondary-color;
+      }
+    }
+  }
+
+  &.resource-profile {
+    color: $resource-profile-primary-color;
+
+    &-background {
+      background-color: $resource-profile-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $resource-profile-secondary-color;
+      }
+    }
+  }
+
+  &.contract {
+    color: $contract-primary-color;
+
+    &-background {
+      background-color: $contract-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $contract-secondary-color;
+      }
+    }
+  }
+
+  &.rate-cost-card {
+    color: $rate-cost-card-primary-color;
+
+    &-background {
+      background-color: $rate-cost-card-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $rate-cost-card-secondary-color;
+      }
+    }
+  }
+
+  &.invoice {
+    color: $invoice-primary-color;
+
+    &-background {
+      background-color: $invoice-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $invoice-secondary-color;
+      }
+    }
+  }
+
+  &.basic-unit {
+    color: $basic-unit-primary-color;
+
+    &-background {
+      background-color: $basic-unit-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $basic-unit-secondary-color;
+      }
+    }
+  }
+
+  &.product {
+    color: $product-primary-color;
+
+    &-background {
+      background-color: $product-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $product-secondary-color;
+      }
+    }
+  }
+
+  &.schedule {
+    color: $schedule-primary-color;
+
+    &-background {
+      background-color: $schedule-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $schedule-secondary-color;
+      }
+    }
+  }
+
+  &.evc-view {
+    color: $evc-view-primary-color;
+
+    &-background {
+      background-color: $evc-view-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $evc-view-secondary-color;
+      }
+    }
+  }
+
+  &.incident {
+    color: $incident-primary-color;
+
+    &-background {
+      background-color: $incident-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $incident-secondary-color;
+      }
+    }
+  }
+
+  &.tools {
+    color: $tools-primary-color;
+
+    &-background {
+      background-color: $tools-primary-color;
+      color: $font-color-light;
+
+      &.bg-secondary {
+        background-color: $tools-secondary-color;
+      }
+    }
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.vertically-centered {
+  display: flex;
+  align-items: center;
+}

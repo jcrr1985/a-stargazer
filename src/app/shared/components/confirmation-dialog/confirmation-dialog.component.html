@@ -1,0 +1,44 @@
+<div class="confirmation-dialog">
+  <div
+    mat-dialog-title
+    class="title">
+    <span>
+      {{ data.titleTranslateKey | translate }}
+    </span>
+
+    <mat-icon
+      *ngIf="data.titleIcon"
+      color="primary"
+      class="title-icon"
+      >{{ data.titleIcon }}</mat-icon
+    >
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div
+    class="content"
+    mat-dialog-content>
+    <h3>{{ data.contentTranslateKey || 'wantToContinue' | translate }}</h3>
+  </div>
+
+  <div
+    class="actions"
+    mat-dialog-actions>
+    <button
+      id="button-cancel"
+      mat-button
+      [mat-dialog-close]="false">
+      {{ 'cancel' | translate }}
+    </button>
+
+    <button
+      id="button-accept"
+      mat-raised-button
+      color="primary"
+      [mat-dialog-close]="true"
+      cdkFocusInitial>
+      {{ 'ok' | translate }}
+    </button>
+  </div>
+</div>

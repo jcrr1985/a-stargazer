@@ -1,0 +1,61 @@
+<div class="toolbar-container">
+  <div class="left-actions">
+    <button
+      id="gears-menu"
+      mat-icon-button
+      aria-label="settings menu"
+      (click)="onGearClick.emit()">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <ng-container *ngFor="let labelMenu of labeledMenus">
+      <app-menu
+        [id]="labelMenu.translateKey!.toLocaleLowerCase() + '-menu'"
+        [labelTranslateKey]="labelMenu.translateKey!"
+        [items]="labelMenu.elements">
+      </app-menu>
+    </ng-container>
+  </div>
+
+  <div class="clocks">
+    <app-clock
+      class="washington"
+      clockTimezone="-4"
+      timeZoneLabel="WHST"></app-clock
+    ><app-clock
+      class="geneve"
+      clockTimezone="+2"
+      timeZoneLabel="GNVE"></app-clock
+    ><app-clock
+      class="singapore"
+      clockTimezone="+8"
+      timeZoneLabel="SGPR"></app-clock>
+  </div>
+
+  <div class="right-actions">
+    <app-quick-search></app-quick-search>
+
+    <!--TODO: Program real behaviour of this badged button-->
+    <button
+      mat-icon-button
+      aria-label="warnings count 0"
+      [matBadge]="0"
+      [matBadgeHidden]="true"
+      disabled>
+      <mat-icon>warning</mat-icon>
+    </button>
+
+    <app-clock
+      class="date"
+      [showDate]="true"
+      [showSeconds]="true"></app-clock>
+
+    <ng-container *ngFor="let iconMenu of iconMenus">
+      <app-menu
+        [id]="iconMenu.name!.toLocaleLowerCase() + '-menu'"
+        [label]="iconMenu.name"
+        [items]="iconMenu.elements"
+        [isIconMode]="true">
+      </app-menu>
+    </ng-container>
+  </div>
+</div>

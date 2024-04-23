@@ -1,0 +1,27 @@
+<mat-form-field
+  [appearance]="$any(field).appearance"
+  [hideRequiredMarker]="field.hideRequiredMarker">
+  <mat-label>{{ field.label }}</mat-label>
+
+  <input
+    matInput
+    [formControl]="control"
+    [required]="required"
+    [attr.type]="field.inputType"
+    [placeholder]="field.placeholder || ''" />
+
+  <mat-hint
+    *ngIf="field.hintStart"
+    align="start"
+    >{{ field.hintStart }}</mat-hint
+  >
+  <mat-hint
+    *ngIf="field.hintEnd"
+    align="end"
+    >{{ field.hintEnd }}</mat-hint
+  >
+
+  <mat-error
+    *ngIf="control.invalid"
+    [innerHTML]="errorControlMessage(control) | safeHtml"></mat-error>
+</mat-form-field>

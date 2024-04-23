@@ -1,0 +1,19 @@
+$bg-selected: lightcyan;
+
+:host {
+  display: block;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-selected {
+  background-color: $bg-selected !important;
+}

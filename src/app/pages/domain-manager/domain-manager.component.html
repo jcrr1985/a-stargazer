@@ -1,0 +1,70 @@
+<div class="domain-manager">
+  <div class="header">
+    <h1
+      *ngIf="body === 'home'"
+      class="title">
+      {{ 'Domains (' + domainParameters.length + ')' }}
+    </h1>
+    <h1
+      *ngIf="body === 'mappings'"
+      class="title">
+      {{ 'Domains Mappings (' + domainMappings.length + ')' }}
+    </h1>
+    <div class="actions">
+      <button
+        [matTooltip]="'save' | translate"
+        (click)="saveDomains()"
+        mat-mini-fab
+        id="button-save"
+        type="submit"
+        color="primary">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button
+        [matTooltip]="'reload' | translate"
+        id="button-reload-tab"
+        (click)="fetchDomains()"
+        type="button"
+        mat-mini-fab
+        color="primary">
+        <mat-icon>sync</mat-icon>
+      </button>
+      <button
+        [matTooltip]="'close' | translate"
+        id="button-close-tab"
+        type="button"
+        mat-mini-fab
+        (click)="closePage()"
+        color="primary">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="body">
+    <div class="body-selectors">
+      <span
+        [matTooltip]="'displayDashboard' | translate"
+        (click)="body = 'home'"
+        class="selector"
+        [ngClass]="{ active: body === 'home' }"
+        ><mat-icon>home</mat-icon></span
+      >
+      <span
+        [matTooltip]="'displayDomainMapping' | translate"
+        class="selector"
+        (click)="body = 'mappings'"
+        [ngClass]="{ active: body === 'mappings' }"
+        ><mat-icon>analytics</mat-icon></span
+      >
+    </div>
+    <div class="body-container">
+      <app-domain-parameters
+        *ngIf="body === 'home'"
+        [data]="domainParameters"
+        (onDataChanged)="handleDataChanged($event)"></app-domain-parameters>
+      <app-domain-mappings
+        *ngIf="body === 'mappings'"
+        [data]="domainMappings"></app-domain-mappings>
+    </div>
+  </div>
+</div>

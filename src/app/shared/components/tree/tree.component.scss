@@ -1,0 +1,16 @@
+.container {
+  .controls {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &.panel {
+    $border: 1px;
+    $radius: 5px;
+    overflow: auto;
+    border: $border solid black;
+    height: calc(100% - #{$border * 2});
+    border-radius: 0 $radius $radius 0;
+  }
+}

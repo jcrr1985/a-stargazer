@@ -1,0 +1,43 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
+    "noImplicitAny": true,
+    "strictPropertyInitialization": true,
+    "paths": {
+      "@models/*": ["src/app/core/models/*"],
+      "@resolvers/*": ["src/app/core/resolvers/*"],
+      "@services/*": ["src/app/core/services/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@constants/*": ["src/constants/*"],
+      "@environment": ["src/environments/environment.ts"],
+      "dynamic-form": ["projects/dynamic-form/src/public-api.ts"],
+      "table-generator": ["projects/table-generator/src/public-api.ts"],
+      "loading": ["projects/loading/src/public-api.ts"],
+      "http-error": ["projects/http-error/src/public-api.ts"],
+      // Only *.spec.ts files
+      "@testing/*": ["src/testing/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

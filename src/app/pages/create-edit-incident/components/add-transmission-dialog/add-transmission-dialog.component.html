@@ -1,0 +1,41 @@
+<div class="add-transmission-dialog">
+  <div
+    mat-dialog-title
+    class="title">
+    <span>{{ 'addTXToIncident' | translate }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div
+    class="content"
+    mat-dialog-content>
+    <app-autocomplete-async
+      id="field-autocomplete"
+      labelTranslateKey="selectTransmission"
+      [searchMethod]="getFilteredTransmissions"
+      [displayValueFormatter]="getTransmissionDisplayValue"
+      (onSelectedOption)="setOptionSelected($event)"></app-autocomplete-async>
+  </div>
+
+  <div
+    class="actions"
+    mat-dialog-actions>
+    <button
+      id="button-cancel"
+      mat-button
+      [mat-dialog-close]="null">
+      {{ 'cancel' | translate }}
+    </button>
+
+    <button
+      id="button-add"
+      mat-raised-button
+      color="primary"
+      [disabled]="!selected"
+      [mat-dialog-close]="selected"
+      cdkFocusInitial>
+      {{ 'add' | translate }}
+    </button>
+  </div>
+</div>

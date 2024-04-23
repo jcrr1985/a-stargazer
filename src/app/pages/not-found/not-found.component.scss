@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  .title {
+    margin-top: 2rem;
+  }
+}

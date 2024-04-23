@@ -1,0 +1,48 @@
+<mat-form-field class="dropdown">
+  <mat-label *ngIf="labelTranslateKey">{{
+    labelTranslateKey | translate
+  }}</mat-label>
+  <input
+    id="input-field"
+    type="text"
+    [formControl]="autocompleteControl"
+    matInput
+    [matAutocomplete]="auto" />
+  <mat-autocomplete
+    (optionSelected)="optionSelectedHandler($event.option.value)"
+    #auto="matAutocomplete"
+    [displayWith]="displayValueFormatter">
+    <!-- If we're not loading AND the array length is 0, show this -->
+    <mat-option
+      id="no-matches-feedback"
+      disabled
+      *ngIf="
+        !filteredOptions || (!loading && !error && filteredOptions.length === 0)
+      ">
+      {{ 'noMatches' | translate }}
+    </mat-option>
+    <!-- If request fails -->
+    <mat-option
+      id="error-feedback"
+      disabled
+      *ngIf="error">
+      {{ 'failedToFetchOptions' | translate }}
+    </mat-option>
+    <!-- If we're loading -->
+    <mat-option
+      id="loading-feedback"
+      disabled
+      *ngIf="loading">
+      <div class="loading"><mat-spinner diameter="35"></mat-spinner></div>
+    </mat-option>
+
+    <!-- If we have results -->
+    <ng-container *ngIf="!loading && !error">
+      <mat-option
+        *ngFor="let option of filteredOptions"
+        [value]="option">
+        {{ displayValueFormatter(option) }}
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+</mat-form-field>

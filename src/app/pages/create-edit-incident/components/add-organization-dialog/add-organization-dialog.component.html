@@ -1,0 +1,58 @@
+<div class="add-organization-dialog">
+  <div
+    mat-dialog-title
+    class="title">
+    <span>{{ 'addOrganizationToIncident' | translate }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div
+    class="content"
+    mat-dialog-content>
+    <app-autocomplete-async
+      id="field-autocomplete"
+      labelTranslateKey="selectOrganization"
+      [searchMethod]="getFilteredOrganizations"
+      [displayValueFormatter]="getOrganizationDisplayValue"
+      (onSelectedOption)="setOptionSelected($event)"></app-autocomplete-async>
+
+    <ng-container *ngIf="suggestedOrganizations.length > 0">
+      <h4>Suggested organizations</h4>
+
+      <mat-selection-list
+        id="list-selection"
+        #suggestedOrganizationsList
+        (selectionChange)="onSuggestionSelectionChange()">
+        <mat-list-option
+          *ngFor="let organization of suggestedOrganizations"
+          [selected]="isOrganizationSelected(organization)"
+          [value]="organization"
+          checkboxPosition="before">
+          {{ organization.name }}
+        </mat-list-option>
+      </mat-selection-list>
+    </ng-container>
+  </div>
+
+  <div
+    class="actions"
+    mat-dialog-actions>
+    <button
+      id="button-cancel"
+      mat-button
+      [mat-dialog-close]="null">
+      {{ 'cancel' | translate }}
+    </button>
+
+    <button
+      id="button-add"
+      mat-raised-button
+      color="primary"
+      [disabled]="selectedOrganizations.length == 0"
+      [mat-dialog-close]="selectedOrganizations"
+      cdkFocusInitial>
+      {{ 'add' | translate }}
+    </button>
+  </div>
+</div>
