@@ -25,7 +25,7 @@ describe('AttachmentsService', () => {
         fileFormat: 'JPG',
         attachmentType: null,
         fileUrl:
-          'http://qual-workspaces.ebu.ch/neos/Shared%20Documents/incident/65538/screenshot_2019_06_07__8__1578528543802.JPG',
+          '/Shared%20Documents/incident/65538/screenshot_2019_06_07__8__1578528543802.JPG',
         archived: true,
         entityId: 65538,
         entityName: 'INCIDENT',
@@ -50,8 +50,7 @@ describe('AttachmentsService', () => {
         eventNo: null,
         fileFormat: 'PNG',
         attachmentType: null,
-        fileUrl:
-          'http://qual-workspaces.ebu.ch/neos/Shared%20Documents/incident/103973/download.PNG',
+        fileUrl: '/Shared%20Documents/incident/103973/download.PNG',
         archived: false,
         entityId: 103973,
         entityName: 'INCIDENT',
