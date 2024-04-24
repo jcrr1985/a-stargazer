@@ -3,7 +3,7 @@ import { LoggerConfig } from 'ngx-logger/lib/logger.config';
 
 export const environment = {
   production: false,
-  baseUrl: '',
+  baseUrl: 'https://stargazer-server.onrender.com',
   logger: {
     serverLoggingUrl: undefined,
     level: NgxLoggerLevel.DEBUG,

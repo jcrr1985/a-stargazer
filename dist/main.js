@@ -5757,7 +5757,7 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_18__["ɵɵdefineInje
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateModule"],
             table_generator__WEBPACK_IMPORTED_MODULE_4__["TableGeneratorModule"],
             dynamic_form__WEBPACK_IMPORTED_MODULE_3__["DynamicFormModule"],
-        ],
+        ], 
         // Modules
         _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormsModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ReactiveFormsModule"],
@@ -9065,7 +9065,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const environment = {
     production: false,
-    baseUrl: '',
+    baseUrl: 'https://stargazer-server.onrender.com',
     logger: {
         serverLoggingUrl: undefined,
         level: ngx_logger__WEBPACK_IMPORTED_MODULE_0__["NgxLoggerLevel"].DEBUG,
