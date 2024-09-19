@@ -34,7 +34,7 @@ router.post('/countries/search', (req, res) => {
       new: false,
     },
   ];
-
+  res.setHeader('Content-Type', 'application/json');
   res.json(countries);
 });
 
@@ -72,6 +72,7 @@ router.post('/cities/search', (req, res) => {
     name: city,
     code: city.slice(0, 3).toUpperCase(),
   }));
+  res.setHeader('Content-Type', 'application/json');
   res.json(citiesWithCodes);
 });
 
@@ -106,7 +107,7 @@ router.get('/quick-search/search', (req, res) => {
     obj.name.toLocaleLowerCase().includes(criteria)
   );
   console.log('searchResults', searchResults);
-
+  res.setHeader('Content-Type', 'application/json');
   res.json(searchResults);
 });
 
@@ -150,7 +151,7 @@ router.get('/domains/domain/BUREAU/items', (req, res) => {
       name: 'Geneva',
     },
   ];
-
+  res.setHeader('Content-Type', 'application/json');
   res.json(dummyData);
 });
 
@@ -205,6 +206,7 @@ router.get('/domains/domain/EVENT_TYPE/items', (req, res) => {
       name: 'Movies',
     },
   ];
+  res.setHeader('Content-Type', 'application/json');
   res.json(dummyData);
 });
 
@@ -259,14 +261,17 @@ router.get('/domains/domain/USER_GROUP/items', (req, res) => {
       name: 'Movies',
     },
   ];
+  res.setHeader('Content-Type', 'application/json');
   res.json(dummyData);
 });
 
 router.get('/users/groups/user@example.com', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
   res.json(['EVC', 'FINANCE']);
 });
 
 router.post('/users/groups/user@example.com/update', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
   res.json(['EVC', 'FINANCE']);
 });
 
@@ -525,6 +530,7 @@ router.post('/events/search', (req, res) => {
       parent: true,
     },
   ];
+  res.setHeader('Content-Type', 'application/json');
   res.json(dummyEventData);
 });
 
@@ -779,7 +785,7 @@ router.post('/organizations/result/search', (req, res) => {
       },
     },
   ];
-
+  res.setHeader('Content-Type', 'application/json');
   res.json(organizations);
 });
 
@@ -956,6 +962,7 @@ router.get('/domains/list-all', (req, res) => {
       },
     ],
   };
+  res.setHeader('Content-Type', 'application/json');
 
   res.json(domainListsResponse);
 });
@@ -1053,10 +1060,13 @@ router.post('/organizations/embedded/search', (req, res) => {
       invoice: true,
     },
   ];
+  res.setHeader('Content-Type', 'application/json');
   res.json(organizationData);
 });
 
 router.post('/products/light/search', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   res.json(
     (fakeProducts = [
       {
@@ -2364,6 +2374,7 @@ router.get('/loyalty-program', (req, res) => {
       isWithAssociatedProduct: 'BOTH',
     },
   ];
+  res.setHeader('Content-Type', 'application/json');
   res.json(fakeLoyaltyPrograms);
 });
 
@@ -2378,6 +2389,7 @@ router.get('/roles', (req, res) => {
       viewer: 'ROLE_STARGAZER_VIEWER',
     },
   ];
+  res.setHeader('Content-Type', 'application/json');
   res.json(role);
 });
 
@@ -2390,10 +2402,14 @@ router.get('/users/authentication', (req, res) => {
     initials: 'EU',
     userPrincipalName: 'user@example.com',
   };
+  res.setHeader('Content-Type', 'application/json');
+
   res.json(userPermissions);
 });
 
 router.post('/incidents/owner/search', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   res.json({
     id: 1,
     code: 'A',
@@ -2402,6 +2418,8 @@ router.post('/incidents/owner/search', (req, res) => {
 });
 
 router.post('/incidents/category/search', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   res.json({
     id: 1,
     code: 'A',
@@ -2472,6 +2490,7 @@ router.post('/transmissions/search-criteria-light', (req, res) => {
       },
     },
   ];
+  res.setHeader('Content-Type', 'application/json');
   res.json(fakeTransmissions);
 });
 
@@ -2502,6 +2521,7 @@ router.post('/resources/search', (req, res) => {
 });
 
 router.post('/resources/findResourceList', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
   res.json([
     {
       id: 1,
@@ -2516,6 +2536,7 @@ router.post('/resources/findResourceList', (req, res) => {
 });
 
 router.post('/organizations/findOrganizationList', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
   res.json([
     {
       id: 1,
