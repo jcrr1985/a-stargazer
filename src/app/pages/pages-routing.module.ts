@@ -69,12 +69,7 @@ const routes: Routes = [
           url: '/countries/search',
           method: 'post',
           body: {
-            orders: [
-              {
-                identifier: 'name',
-                asc: true,
-              },
-            ],
+
           },
         },
         {
@@ -82,12 +77,7 @@ const routes: Routes = [
           url: '/cities/search',
           method: 'post',
           body: {
-            orders: [
-              {
-                identifier: 'name',
-                asc: true,
-              },
-            ],
+
           },
         },
       ],
