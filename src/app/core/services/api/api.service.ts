@@ -33,7 +33,7 @@ export interface HttpOptions<T> {
  * Defult HttpOptions when call a ApiService request CRUD methods
  */
 export const DEFAULT_HTTP_OPTIONS: HttpOptions<undefined> = {
-  headers: { 'Content-Type': 'application/json;charset=utf-8', 'ngrok-skip-browser-warning': 'true' },
+  headers: { 'Content-Type': 'application/json;charset=utf-8'},
   observe: 'response' as 'body',
   responseType: 'json',
 };
